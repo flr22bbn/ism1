@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .item {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            cursor: pointer;
+        }
+
+        #cartCount {
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>All Items</h2>
+    <div class="item" id="item1">
+        <span>Item 1 - Price: $10</span>
+        <button onclick="addToCart('Item 1', 10)">Add to Cart</button>
+    </div>
+    <div class="item" id="item2">
+        <span>Item 2 - Price: $20</span>
+        <button onclick="addToCart('Item 2', 20)">Add to Cart</button>
+    </div>
+    <a href="cart.html" id="cartLink">Cart (<span id="cartCount">0</span>)</a>
+
+    <script>
+        function addToCart(itemName, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || { items: [], total: 0 };
+            cart.items.push({ name: itemName, price: price });
+            cart.total += price;
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+            let cartCountElement = document.getElementById('cartCount');
+            cartCountElement.textContent = cart.items.length;
+        }
+    </script>
+</body>
+
+</html>
